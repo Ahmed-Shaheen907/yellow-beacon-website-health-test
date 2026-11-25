@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yellow Beacon Website Health Test: speed, SEO and AI search</title>
+<meta name="description" content="Free website health test. Paste your website address and get a plain score for mobile speed, SEO and AI search, with the fixes that matter most.">
+<meta property="og:title" content="Yellow Beacon Website Health Test">
+<meta property="og:description" content="Paste your website address. Get a score for mobile speed, SEO and AI search in about a minute.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23E0A800'/%3E%3C/svg%3E">
+<style>
+:root{--ink:#17150f;--mute:#5d584b;--line:#e8e2d0;--soft:#fbf7e8;--mustard:#E0A800;--mustard-dark:#8a6a00;--hi:#FFE27A;--good:#2f7d32;--warn:#b7791f;--bad:#c0392b;--r:10px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+header{padding:22px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.01em}
+.dot{width:16px;height:16px;border-radius:50%;background:var(--mustard);box-shadow:0 0 0 5px rgba(224,168,0,.22)}
+.hero{padding:34px 0 28px}
+h1{font-size:clamp(32px,6vw,52px);line-height:1.08;margin:0 0 14px;letter-spacing:-.02em}
+mark{background:linear-gradient(transparent 55%,var(--hi) 55%);color:inherit;padding:0 2px}
+.lead{font-size:18px;color:var(--mute);max-width:620px;margin:0 0 26px}
+form{display:flex;gap:10px;flex-wrap:wrap}
+input[type=text]{flex:1 1 280px;min-height:52px;padding:0 16px;font:inherit;border:2px solid var(--ink);border-radius:var(--r);background:#fff;color:var(--ink)}
+input[type=text]:focus{outline:3px solid var(--hi);outline-offset:1px}
+button{min-height:52px;padding:0 26px;font:inherit;font-weight:800;border:2px solid var(--ink);border-radius:var(--r);background:var(--mustard);color:var(--ink);cursor:pointer;box-shadow:4px 4px 0 var(--ink)}
+button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+button[disabled]{opacity:.6;cursor:wait}
+.note{font-size:13px;color:var(--mute);margin-top:10px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0 10px}
+.three div{border:1px solid var(--line);border-radius:var(--r);padding:16px;background:var(--soft)}
+.three b{display:block;margin-bottom:4px}
+.three span{font-size:14px;color:var(--mute)}
+#status{display:none;margin:26px 0;padding:18px;border:2px dashed var(--mustard);border-radius:var(--r);background:var(--soft)}
+#status.on{display:block}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;width:30%;background:var(--mustard);animation:slide 1.4s infinite ease-in-out}
+@keyframes slide{0%{margin-left:-30%}100%{margin-left:100%}}
+#err{display:none;margin:20px 0;padding:14px 16px;border-radius:var(--r);border:2px solid var(--bad);background:#fdf1ef;color:#7a1f14}
+#out{display:none;padding-bottom:50px}
+.url{color:var(--mute);font-size:14px;word-break:break-all}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 26px}
+.card{border:1px solid var(--line);border-radius:var(--r);padding:16px 10px;text-align:center;background:#fff}
+.card.main{background:var(--hi);border-color:var(--mustard)}
+.big{font-size:42px;font-weight:800;line-height:1}
+.card small{display:block;margin-top:6px;color:var(--mute);font-weight:600}
+.tag{font-weight:800;font-size:14px}
+.Good{color:var(--good)}.Needs{color:var(--warn)}.Bad{color:var(--bad)}
+h2{font-size:22px;margin:34px 0 10px}
+.fix{border-left:5px solid var(--mustard);background:var(--soft);padding:12px 14px;margin:10px 0;border-radius:0 var(--r) var(--r) 0}
+.fix b{display:block}
+.fix span{display:block;color:var(--mute);font-size:14px}
+.fix em{font-style:normal;font-size:13px;color:var(--mustard-dark);font-weight:700}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.metrics div{border:1px solid var(--line);border-radius:var(--r);padding:10px 12px}
+.metrics b{display:block;font-size:20px}
+.metrics span{font-size:13px;color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.pill{font-weight:800;white-space:nowrap}
+.pass{color:var(--good)}.warn{color:var(--warn)}.fail{color:var(--bad)}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--mute);font-size:13px}
+@media(max-width:640px){.three{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}th:nth-child(3),td:nth-child(3){display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="brand"><span class="dot"></span> Yellow Beacon</div></div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Is your website <mark>helping you</mark> or holding you back?</h1>
+    <p class="lead">Paste your website address. In about a minute you get a plain score for mobile speed, SEO and AI search, and the fixes that matter most.</p>
+    <form id="f">
+      <input id="u" type="text" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="yourwebsite.com" aria-label="Website address" required>
+      <button id="go" type="submit">Test my website</button>
+    </form>
+    <div class="note">Free. No sign up. We only read the public page, the same way Google and AI tools do.</div>
+    <div class="three">
+      <div><b>Mobile speed</b><span>How fast the page loads on a phone, run by Google Lighthouse.</span></div>
+      <div><b>SEO</b><span>Whether Google can find, read and list your page.</span></div>
+      <div><b>AI search</b><span>Whether ChatGPT, Perplexity and Claude can read and quote you.</span></div>
+    </div>
+  </section>
+
+  <div id="status" role="status"><b id="stxt">Testing...</b><div class="bar"><i></i></div></div>
+  <div id="err" role="alert"></div>
+
+  <section id="out"></section>
+</main>
+
+<footer><div class="wrap">Yellow Beacon Website Health Test. Scores are a guide. Speed numbers come from Google PageSpeed Insights. AI search checks show what crawlers can read, not whether an AI answer names your site today.</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cls = v => v === 'Needs work' ? 'Needs' : v;
+const verdict = n => n >= 80 ? 'Good' : n >= 55 ? 'Needs work' : 'Bad';
+const sec = ms => ms == null ? 'n/a' : (ms / 1000).toFixed(1) + ' s';
+const labels = { pass: 'OK', warn: 'Improve', fail: 'Problem' };
+
+async function call(path, url) {
+  const r = await fetch(path + '?url=' + encodeURIComponent(url));
+  return r.json();
+}
+
+$('f').addEventListener('submit', async e => {
+  e.preventDefault();
+  const url = $('u').value.trim();
+  $('err').style.display = 'none'; $('out').style.display = 'none';
+  $('go').disabled = true; $('status').classList.add('on'); $('stxt').textContent = 'Reading your website...';
+  try {
+    const speedP = call('/api/speed', url).catch(() => ({ error: 'The speed test could not finish.' }));
+    const audit = await call('/api/audit', url);
+    if (audit.error) throw new Error(audit.error);
+    $('stxt').textContent = 'Running the mobile speed test (about 30 seconds)...';
+    const speed = await speedP;
+    render(audit, speed);
+  } catch (x) {
+    $('err').textContent = x.message || 'Something went wrong. Try again.';
+    $('err').style.display = 'block';
+  } finally {
+    $('go').disabled = false; $('status').classList.remove('on');
+  }
+});
+
+function render(audit, speed) {
+  const cats = audit.categories.map(c => ({ ...c }));
+  const hasLive = speed && !speed.error;
+  // Use the Lighthouse score as the speed score when we have it, and keep the basic checks below it.
+  const basics = cats.find(c => c.name === 'Speed basics');
+  const cards = [];
+  if (hasLive) cards.push({ name: 'Mobile speed', score: speed.score });
+  else if (basics) cards.push({ name: 'Mobile speed (basics only)', score: basics.score });
+  cats.filter(c => c.name !== 'Speed basics').forEach(c => cards.push({ name: c.name, score: c.score }));
+  const overall = Math.round(cards.reduce((s, c) => s + c.score, 0) / cards.length);
+
+  const fixes = [];
+  cats.forEach(c => c.checks.forEach(k => { if (k.status !== 'pass') fixes.push({ ...k, c: c.name }); }));
+  fixes.sort((a, b) => (a.status === 'fail' ? 0 : 1) - (b.status === 'fail' ? 0 : 1) || b.weight - a.weight);
+  const top = fixes.slice(0, 6);
+
+  let h = `<div class="url">${esc(audit.url)}</div>
+  <div class="cards">
+    <div class="card main"><div class="big ${cls(verdict(overall))}">${overall}</div><small>Overall</small><span class="tag ${cls(verdict(overall))}">${verdict(overall)}</span></div>
+    ${cards.map(c => `<div class="card"><div class="big ${cls(verdict(c.score))}">${c.score}</div><small>${esc(c.name)}</small><span class="tag ${cls(verdict(c.score))}">${verdict(c.score)}</span></div>`).join('')}
+  </div>`;
+
+  h += `<h2>Fix these first</h2>` + (top.map(k => `<div class="fix"><em>${esc(k.c)}</em><b>${esc(k.name)}</b><span>Found: ${esc(k.found)}</span><span>${esc(k.fix)}</span></div>`).join('') || '<p>Nothing major. Nice work.</p>');
+
+  if (hasLive) {
+    h += `<h2>Mobile speed numbers</h2><div class="metrics">
+      <div><b>${sec(speed.fcp)}</b><span>First paint</span></div>
+      <div><b>${sec(speed.lcp)}</b><span>Main content shows</span></div>
+      <div><b>${speed.tbt == null ? 'n/a' : Math.round(speed.tbt) + ' ms'}</b><span>Blocking time</span></div>
+      <div><b>${speed.cls == null ? 'n/a' : speed.cls.toFixed(3)}</b><span>Layout jumps</span></div>
+      <div><b>${speed.bytes == null ? 'n/a' : Math.round(speed.bytes / 1024) + ' KB'}</b><span>Page weight</span></div>
+    </div>`;
+  } else if (speed && speed.error) {
+    h += `<h2>Mobile speed numbers</h2><p>${esc(speed.error)} The basic speed checks below still ran.</p>`;
+  }
+
+  cats.forEach(c => {
+    h += `<h2>${esc(c.name)}: <span class="${cls(c.verdict)}">${c.score}/100, ${c.verdict}</span></h2>
+    <table><tr><th>Check</th><th>Result</th><th>Found</th></tr>
+    ${c.checks.map(k => `<tr><td>${esc(k.name)}</td><td class="pill ${k.status}">${labels[k.status]}</td><td>${esc(k.found)}</td></tr>`).join('')}</table>`;
+  });
+
+  $('out').innerHTML = h; $('out').style.display = 'block';
+  $('out').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "name": "yellow-beacon-website-health-test",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free website health test: mobile speed, SEO and AI search readiness.",
+  "engines": { "node": ">=20" }
+}
