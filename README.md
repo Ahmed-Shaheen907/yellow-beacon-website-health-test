@@ -17,7 +17,7 @@ Each check says what was found and how to fix it. The top fixes are listed first
 
 ## Deploy
 
-Deploys on Vercel with no settings. Set one environment variable for the mobile speed score:
+Deploys on Vercel with no settings. Every push to `main` deploys by itself. Set one environment variable for the mobile speed score:
 
 - `PSI_API_KEY`: a free Google API key with the PageSpeed Insights API enabled. Without it, Google's shared free quota is often used up and the tool shows the basic speed checks only.
 
